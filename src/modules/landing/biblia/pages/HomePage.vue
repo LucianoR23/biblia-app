@@ -3,15 +3,17 @@
     <div class="card bg-neutral text-neutral-content w-72">
       <div class="card-body items-center text-center">
         <h2 class="card-title">Buscar en la biblia</h2>
-        <select class="select select-primary w-1/2 max-w-xs">
-          <option disabled selected>Libro</option>
-          <option>Genesis</option>
-          <option>Mateo</option>
+        <select class="select select-primary w-1/2 max-w-xs" v-model="selectedLibro" @change="cargarCapitulos">
+          <option disabled selected>Seleccione un Libro</option>
+          <option v-for="libro in libros" :key="libro.abrev" :value="libro">
+            {{ libro.names[0] }}
+          </option>
         </select>
-        <select class="select select-primary w-1/2 max-w-xs">
+        <select class="select select-primary w-1/2 max-w-xs" v-model="selectedCapitulo" v-if="capitulos.length > 0">
           <option disabled selected>Capitulo</option>
-          <option>1</option>
-          <option>2</option>
+          <option v-for="capitulo in capitulos" :key="capitulo" :value="capitulo">
+            {{ capitulo }}
+          </option>
         </select>
         <select class="select select-primary w-1/2 max-w-xs">
           <option disabled selected>Versiculos</option>
@@ -40,3 +42,11 @@
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+import { useBiblia } from '../composable/useBiblia';
+
+
+  const { capitulos, cargarCapitulos, libros, selectedCapitulo, selectedLibro } = useBiblia();
+
+</script>

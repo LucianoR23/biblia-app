@@ -1,5 +1,6 @@
 import NotFound404 from "@/modules/common/pages/NotFound404.vue";
-import HomePage from "@/modules/landing/pages/HomePage.vue";
+import HomePage from "@/modules/landing/biblia/pages/HomePage.vue";
+
 import { createRouter, createWebHistory } from "vue-router";
 
 
@@ -20,12 +21,12 @@ const router = createRouter({
         {
           path: '/biblia',
           name: 'biblia',
-          component: () => import('@/modules/landing/pages/BibliaPage.vue'),
+          component: () => import('@/modules/landing/biblia/pages/BibliaPage.vue'),
         },
         {
           path: '/rosario',
           name: 'rosario',
-          component: () => import('@/modules/landing/pages/RosarioPage.vue'),
+          component: () => import('@/modules/landing/biblia/pages/RosarioPage.vue'),
         },
         {
           path: '/misterios-gloriosos',
