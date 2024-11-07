@@ -19,11 +19,6 @@ const router = createRouter({
           component: HomePage,
         },
         {
-          path: '/biblia',
-          name: 'biblia',
-          component: () => import('@/modules/landing/biblia/pages/BibliaPage.vue'),
-        },
-        {
           path: '/rosario',
           name: 'rosario',
           component: () => import('@/modules/landing/biblia/pages/RosarioPage.vue'),

@@ -1,14 +1,15 @@
 import { onMounted, ref } from "vue"
 import type { LibrosBiblia, Ver, InfoCapitulo } from "../../interfaces"
 import { bibliaApi } from "../api/bibliaApi";
+import router from "@/router";
 
 
 
 export const useBiblia = () => {
 
   const libros = ref<LibrosBiblia[]>([]);
-  const libroSeleccionado = ref<LibrosBiblia>();
-  const capituloSeleccionado = ref<number>();
+  const libroSeleccionado = ref<string>('');
+  const capituloSeleccionado = ref<number>(1);
   const capitulos = ref<number[]>([]);
   const infoVersiculos = ref<Ver[]>([])
 
@@ -24,19 +25,24 @@ export const useBiblia = () => {
     }
   };
 
-  const cargarCapitulos = async() => {
-    // await new Promise( r => setTimeout(r, 1000) )
+  const cargarCapitulos = async () => {
     if (libroSeleccionado.value) {
-      // Asegurar que 'libroSeleccionado' está correctamente tipado como 'LibrosBiblia'
-      const libro = libroSeleccionado.value;
+      const libro = libros.value.find(libro => libro.names[0] === libroSeleccionado.value);
+
+      if (!libro) {
+        console.error(`Libro con nombre ${libroSeleccionado.value} no encontrado.`);
+        return;
+      }
+
       // Generar la lista de capítulos según el libro seleccionado
       capitulos.value = Array.from({ length: libro.chapters }, (_, i) => i + 1);
     }
   };
 
+
   const cargarInfoVersiculos = async( capitulo: number, book: string ) => {
     try {
-      const resp = await bibliaApi.get<InfoCapitulo>(`/read/rv1960/${book}/${capitulo}`);
+      const resp = await bibliaApi.get<InfoCapitulo>(`/read/rv1995/${book}/${capitulo}`);
 
       infoVersiculos.value = resp.data.vers
     } catch (error) {
@@ -55,6 +61,12 @@ export const useBiblia = () => {
     return capitulo > 1 ? capitulo - 1 : 1;
   }
 
+  const navegarARuta = (libro: string, cap: number) => {
+    if(libro && cap){
+      router.push({ name: 'biblia', params: { book: libro, capitulo: cap } })
+    }
+  }
+
   onMounted( async() => {
     await new Promise( r => setTimeout(r, 1000) )
     libros.value = await getLibros()
@@ -71,6 +83,6 @@ export const useBiblia = () => {
     siguienteCapitulo,
     anteriorCapitulo,
     cargarInfoVersiculos,
-    getLibros
+    navegarARuta
   }
 }
