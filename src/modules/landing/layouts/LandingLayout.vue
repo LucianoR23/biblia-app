@@ -10,9 +10,8 @@
       <nav class="ml-auto space-x-4 space-y-0.4 flex flex-col items-end h-10 sm:space-x-6">
         <div class="space-x-4">
           <RouterLink to="/">Inicio</RouterLink>
-          <RouterLink to="/biblia">Biblia</RouterLink>
+          <RouterLink to="/biblia/Genesis/1">Biblia</RouterLink>
           <RouterLink to="/rosario">Rosario</RouterLink>
-          <RouterLink to="/pokemon/1">Pokemon</RouterLink>
         </div>
         <div class="space-x-4">
         </div>
@@ -22,12 +21,7 @@
 
     <!-- Main -->
     <main class="flex-1 flex items-start justify-center py-5">
-      <router-view v-slot="{ Component }">
-        <keep-alive>
-          <component :is="Component" />
-        </keep-alive>
-      </router-view>
-      <!-- <RouterView /> -->
+      <RouterView />
     </main>
     <!-- Fin Main -->
 
@@ -40,9 +34,3 @@
     <!-- Fin Footer -->
   </div>
 </template>
-
-<style scoped>
-
-
-
-</style>

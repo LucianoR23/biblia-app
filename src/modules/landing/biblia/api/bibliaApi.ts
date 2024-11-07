@@ -2,11 +2,7 @@ import axios from "axios";
 
 
 const bibliaApi = axios.create({
-  baseURL: 'https://bible-api.deno.dev/api/read'
+  baseURL: 'https://bible-api.deno.dev/api'
 });
 
-const librosApi = axios.create({
-  baseURL: 'https://bible-api.deno.dev/api/books'
-})
-
-export { bibliaApi, librosApi };
+export { bibliaApi };

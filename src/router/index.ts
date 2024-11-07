@@ -49,18 +49,29 @@ const router = createRouter({
           component: () => import('@/modules/rosario/pages/MisteriosDolorosos.vue'),
         },
         {
-          path: '/pokemon/:id',
-          name: 'pokemon',
+          path: '/biblia/:book/:capitulo',
+          name: 'biblia',
           props: ( route ) => {
-            const id = Number(route.params.id);
+            const book = route.params.book
+            const capitulo = Number(route.params.capitulo);
 
-            if( id < 1 ){
-              return {id: 1};
+            if( capitulo < 1 ){
+              return {
+                capitulo: 1,
+                book
+              };
             }
 
-            return isNaN(id) ? { id: 1 } : { id }
+            if(isNaN(capitulo)){
+              return {
+                capitulo: 1,
+                book
+              };
+            } else {
+              return { capitulo, book }
+            }
           },
-          component: () => import('@/modules/pokemons/pages/PokemonPage.vue'),
+          component: () => import('@/modules/landing/biblia/pages/BibliaPage.vue'),
         },
       ]
     },
@@ -75,3 +86,7 @@ const router = createRouter({
 })
 
 export default router;
+
+/*
+
+*/
